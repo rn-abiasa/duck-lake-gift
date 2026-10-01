@@ -140,7 +140,7 @@ function Meter({ count, allOpened, stage }) {
 function ReasonCard({ reason, index, open, onOpen }) {
   return (
     <li
-      className="anim-pop w-[calc(50%-0.5rem)] even:mt-5 wide:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)]"
+      className="anim-pop w-[calc(50%-0.5rem)] max-w-[8.75rem] even:mt-5 wide:w-[calc(50%-0.75rem)] wide:max-w-52 xl:w-[calc(33.333%-1rem)]"
       style={{ animationDelay: `${0.9 + index * 0.15}s` }}
     >
       <div
@@ -156,34 +156,34 @@ function ReasonCard({ reason, index, open, onOpen }) {
               ? `${reason.title}: ${reason.text}`
               : `Open reason ${index + 1} of ${REASONS.length}`
           }
-          className={`flip block aspect-[4/5] w-full cursor-pointer text-left transition-[translate] duration-150 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-red-400 ${
+          className={`flip block aspect-[5/6] w-full cursor-pointer text-left transition-[translate] duration-150 wide:aspect-[7/8] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-red-400 ${
             open ? "is-open" : "hover:-translate-y-1"
           } ${reason.tilt}`}
         >
           <span className="flip-inner">
             {/* Sisi depan */}
-            <span className="flip-face flex-col items-center justify-between rounded-xl border-2 border-[#1e3a5f] bg-white p-3 shadow-[4px_4px_0_#5b9fd6]">
-              <span className="caveat block h-7 w-7 self-start rounded-full bg-[#1e3a5f] text-center text-lg leading-7 font-semibold text-white">
+            <span className="flip-face flex-col items-center justify-between rounded-xl border-2 border-[#1e3a5f] bg-white p-2.5 shadow-[3px_3px_0_#5b9fd6]">
+              <span className="caveat block h-6 w-6 self-start rounded-full bg-[#1e3a5f] text-center text-base leading-6 font-semibold text-white">
                 {index + 1}
               </span>
               <Icon
                 d={HEART_ICON}
-                className="anim-beat h-14 w-14 text-red-400 wide:h-20 wide:w-20"
+                className="anim-beat h-11 w-11 text-red-400 wide:h-14 wide:w-14"
               />
-              <span className="caveat text-xl text-[#1e3a5f]/70 wide:text-2xl">
+              <span className="caveat text-lg text-[#1e3a5f]/70 wide:text-xl">
                 tap me
               </span>
             </span>
 
             {/* Sisi belakang: alasan */}
-            <span className="flip-face flip-back flex-col items-center justify-center rounded-xl border-2 border-[#1e3a5f] bg-yellow-100 p-3 text-center shadow-[4px_4px_0_#f87171]">
-              <span className="yuyu text-base text-[#1e3a5f] wide:text-lg lg:text-xl">
+            <span className="flip-face flip-back flex-col items-center justify-center rounded-xl border-2 border-[#1e3a5f] bg-yellow-100 p-2.5 text-center shadow-[3px_3px_0_#f87171]">
+              <span className="yuyu text-sm text-[#1e3a5f] wide:text-base">
                 {reason.title}
               </span>
-              <span className="caveat mt-1 text-lg leading-5 text-[#1e3a5f] wide:text-xl wide:leading-6 lg:text-2xl lg:leading-7">
+              <span className="caveat mt-1 text-base leading-5 text-[#1e3a5f] wide:text-xl wide:leading-6">
                 {reason.text}
               </span>
-              <Icon d={HEART_ICON} className="mt-2 h-5 w-5 text-red-400" />
+              <Icon d={HEART_ICON} className="mt-1.5 h-4 w-4 text-red-400" />
             </span>
           </span>
         </button>
@@ -213,9 +213,8 @@ export default function WhyYouAreSpecial() {
 
   useEffect(() => {
     if (stage !== 2) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     doneRef.current?.scrollIntoView({
-      behavior: reduce ? "auto" : "smooth",
+      behavior: "smooth",
       block: "center",
     });
   }, [stage]);

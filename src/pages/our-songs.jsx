@@ -2,8 +2,8 @@ import { useState } from "react";
 import NextButton from "../components/next-button";
 import wrapper from "../assets/vinyl_wrapper_sketch.webp";
 
-// Ganti dengan path halaman berikutnya saat route-nya sudah dibuat di main.jsx
-const NEXT_PATH = "/next";
+// Halaman berikutnya setelah daftar lagu
+const NEXT_PATH = "/wish";
 
 // 4 lagu. Isi `url` dengan link YouTube (watch?v=..., youtu.be/..., atau ID 11 karakter).
 // Selama url masih kosong, kartu tampil tetapi tombol play dinonaktifkan.
