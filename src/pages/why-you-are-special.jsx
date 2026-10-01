@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import NextButton from "../components/next-button";
 
-// Ganti dengan path halaman berikutnya saat route-nya sudah dibuat di main.jsx
-const NEXT_PATH = "/next";
+// Halaman berikutnya setelah mini game
+const NEXT_PATH = "/memories";
 
 // Ganti isi 5 alasan di sini. title = judul pendek, text = kalimat singkat (±60 karakter).
 const REASONS = [

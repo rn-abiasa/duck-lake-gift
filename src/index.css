@@ -372,3 +372,140 @@
     transform: translate(var(--tx), var(--ty)) scale(var(--s)) rotate(var(--r));
   }
 }
+
+/* ---------- Halaman Memories ---------- */
+
+/* Pola polkadot biru lembut */
+.dots-blue {
+  background-color: #eaf4fc;
+  background-image: radial-gradient(
+    rgba(91, 159, 214, 0.5) 1.6px,
+    transparent 1.8px
+  );
+  background-size: 22px 22px;
+}
+
+/* Bunting (bendera segitiga) di bagian atas */
+.bunting {
+  height: 46px;
+  background-repeat: repeat-x;
+  background-size: 160px 46px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='46' viewBox='0 0 160 46'%3E%3Cpath d='M0 4 Q80 12 160 4' fill='none' stroke='%231e3a5f' stroke-width='2'/%3E%3Cpath d='M4 4.4 L36 6.8 L20 38Z' fill='%23f87171' stroke='%231e3a5f' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M44 7.2 L76 8 L60 38Z' fill='%235b9fd6' stroke='%231e3a5f' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M84 8 L116 7.2 L100 38Z' fill='%23fcd34d' stroke='%231e3a5f' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M124 6.8 L156 4.4 L140 38Z' fill='%23f9a8d4' stroke='%231e3a5f' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+@media (min-width: 48rem), (orientation: landscape) and (max-height: 32.5rem) {
+  .bunting {
+    height: 58px;
+    background-size: 200px 58px;
+  }
+}
+
+/* Tali jemuran bergaris koral-putih */
+.twine {
+  background-image: repeating-linear-gradient(
+    90deg,
+    #f87171 0 6px,
+    #ffffff 6px 12px
+  );
+  border-radius: 9999px;
+  box-shadow: 0 0 0 1px #1e3a5f;
+}
+
+/* Lubang rol film */
+.film-holes {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #eaf4fc 0 7px,
+    transparent 7px 14px
+  );
+  border-radius: 2px;
+}
+
+/* Gelombang danau */
+.waves {
+  background-repeat: repeat-x, repeat-x;
+  background-size:
+    120px 28px,
+    120px 20px;
+  background-position:
+    0 100%,
+    60px 100%;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='28' viewBox='0 0 120 28'%3E%3Cpath d='M0 14 Q30 0 60 14 T120 14 V28 H0Z' fill='%23cfe6f7'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='20' viewBox='0 0 120 20'%3E%3Cpath d='M0 10 Q30 0 60 10 T120 10 V20 H0Z' fill='%239fcdee'/%3E%3C/svg%3E");
+}
+
+.draw {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-swing {
+    transform-origin: 50% 0;
+    animation:
+      swing-in 1.5s ease-out var(--d, 0s) both,
+      sway var(--sway, 5s) ease-in-out calc(var(--d, 0s) + 1.5s) infinite;
+  }
+  .draw {
+    animation: draw 1s ease-out 0.9s both;
+  }
+  .waves {
+    animation: drift 7s linear infinite;
+  }
+}
+
+@keyframes swing-in {
+  0% {
+    opacity: 0;
+    transform: rotate(28deg) translateY(-12px);
+  }
+  30% {
+    opacity: 1;
+    transform: rotate(-16deg);
+  }
+  55% {
+    transform: rotate(9deg);
+  }
+  75% {
+    transform: rotate(-4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1.8deg);
+  }
+  75% {
+    transform: rotate(-1.8deg);
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 220;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drift {
+  from {
+    background-position:
+      0 100%,
+      60px 100%;
+  }
+  to {
+    background-position:
+      120px 100%,
+      -60px 100%;
+  }
+}
