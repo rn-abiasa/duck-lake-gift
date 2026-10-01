@@ -1,7 +1,7 @@
 import NextButton from "../components/next-button";
 
 // Ganti dengan path halaman berikutnya saat route-nya sudah dibuat di main.jsx
-const NEXT_PATH = "/next";
+const NEXT_PATH = "/our-songs";
 
 // 5 frame foto, masing-masing dengan gaya frame berbeda.
 // Biarkan src: null untuk frame kosong (blanko).

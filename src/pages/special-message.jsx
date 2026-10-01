@@ -1,5 +1,10 @@
 import NextButton from "../components/next-button";
 
+import one from "../assets/1.webp";
+import two from "../assets/2.webp";
+import three from "../assets/3.webp";
+import five from "../assets/5.webp";
+
 // Halaman berikutnya setelah pesan spesial
 const NEXT_PATH = "/why-you-are-special";
 
@@ -16,14 +21,14 @@ const CLOSING = ["With all my love,", "Always yours"];
 // Untuk mengisi foto: import gambarnya lalu isi src, contoh src: foto1
 const PHOTOS = [
   {
-    src: null,
+    src: one,
     alt: "Our first memory",
     caption: "memory #1",
     rotate: "-rotate-6",
     tape: "bg-red-300/70",
   },
   {
-    src: null,
+    src: two,
     alt: "Our second memory",
     caption: "memory #2",
     rotate: "rotate-2",
@@ -31,7 +36,7 @@ const PHOTOS = [
     tape: "bg-yellow-200/90",
   },
   {
-    src: null,
+    src: three,
     alt: "Our third memory",
     caption: "memory #3",
     rotate: "rotate-6",
@@ -207,11 +212,7 @@ export default function SpecialMessage() {
           {/* Foto dekorasi versi mobile (di bawah pesan) */}
           <PhotoFan className="mt-10 flex wide:hidden" />
 
-          <NextButton
-            to={NEXT_PATH}
-            delay="2.4s"
-            className="mt-10 wide:mt-12"
-          >
+          <NextButton to={NEXT_PATH} delay="2.4s" className="mt-10 wide:mt-12">
             One more thing
           </NextButton>
         </div>

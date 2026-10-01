@@ -7,6 +7,7 @@ import Cover from "./pages/cover";
 import SpecialMessage from "./pages/special-message";
 import WhyYouAreSpecial from "./pages/why-you-are-special";
 import Memories from "./pages/memories";
+import OurSongs from "./pages/our-songs";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/memories",
     element: <Memories />,
+  },
+  {
+    path: "/our-songs",
+    element: <OurSongs />,
   },
 ]);
 
