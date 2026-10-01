@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import plate from "../assets/love_plate_sketch.webp";
 import haikal from "../assets/haikal_with_sketch_hat.webp";
 
-// Ganti dengan path halaman berikutnya saat route-nya sudah dibuat di main.jsx
-const NEXT_PATH = "/next";
+// Halaman berikutnya setelah cover
+const NEXT_PATH = "/special-message";
 
 const CONFETTI_COLORS = [
   "#5b9fd6",
