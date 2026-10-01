@@ -196,18 +196,46 @@ function SongCard({ song, index, active, onToggle }) {
           </span>
         )}
 
-        {/* Area media: facade piringan -> diganti iframe YouTube saat dimainkan */}
+        {/* Area media: thumbnail video -> diganti iframe YouTube saat dimainkan */}
         <div
           className={`relative aspect-[4/3] overflow-hidden rounded-xl border-2 border-[#1e3a5f] ${song.tint}`}
         >
-          <iframe
-            className="absolute inset-0 h-full w-full border-0"
-            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`}
-            title={name}
-            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-            allowFullScreen
-            referrerPolicy="strict-origin-when-cross-origin"
-          />
+          {active && id ? (
+            <iframe
+              className="absolute inset-0 h-full w-full border-0"
+              src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`}
+              title={name}
+              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+          ) : (
+            <button
+              type="button"
+              onClick={onToggle}
+              disabled={!playable}
+              aria-label={
+                playable ? `Play ${name}` : `${name} (add a YouTube link first)`
+              }
+              className="absolute inset-0 block w-full cursor-pointer transition-[filter] duration-150 focus-visible:outline-3 focus-visible:-outline-offset-4 focus-visible:outline-red-400 hover:brightness-110 disabled:cursor-not-allowed disabled:hover:brightness-100"
+            >
+              {id && (
+                <img
+                  src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+                  alt=""
+                  aria-hidden="true"
+                  draggable={false}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full select-none object-cover"
+                />
+              )}
+              {!playable && (
+                <span className="caveat absolute bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/90 px-3 text-base text-[#1e3a5f]">
+                  add a YouTube link
+                </span>
+              )}
+            </button>
+          )}
         </div>
 
         {/* Info lagu + tombol */}
