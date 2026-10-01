@@ -20,9 +20,9 @@ const SONGS = [
     stagger: "",
   },
   {
-    title: "Song title #2",
-    artist: "Artist name",
-    url: "",
+    title: "You!",
+    artist: "LANY",
+    url: "HEAn4FqXFY4",
     tint: "bg-[#dcecf9]",
     label: "#93c5fd",
     shadow: "shadow-[5px_5px_0_#5b9fd6]",
@@ -31,9 +31,9 @@ const SONGS = [
     stagger: "wide:mt-10",
   },
   {
-    title: "Song title #3",
-    artist: "Artist name",
-    url: "",
+    title: "Kita Lewati Berdua",
+    artist: "Overnight",
+    url: "__Pb1fO2H2A",
     tint: "bg-[#fde2e4]",
     label: "#fca5a5",
     shadow: "shadow-[5px_5px_0_#f4c95d]",
@@ -42,9 +42,9 @@ const SONGS = [
     stagger: "",
   },
   {
-    title: "Song title #4",
-    artist: "Artist name",
-    url: "",
+    title: "Bergema Sampai Selamanya",
+    artist: "Nadhif Basalamah",
+    url: "gvunApwKIiY",
     tint: "bg-[#d8f3e4]",
     label: "#86efac",
     shadow: "shadow-[5px_5px_0_#9bb98a]",
@@ -200,43 +200,14 @@ function SongCard({ song, index, active, onToggle }) {
         <div
           className={`relative aspect-[4/3] overflow-hidden rounded-xl border-2 border-[#1e3a5f] ${song.tint}`}
         >
-          {active ? (
-            <iframe
-              className="absolute inset-0 h-full w-full border-0"
-              src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`}
-              title={name}
-              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-              allowFullScreen
-              referrerPolicy="strict-origin-when-cross-origin"
-            />
-          ) : (
-            <button
-              type="button"
-              onClick={onToggle}
-              disabled={!playable}
-              aria-label={
-                playable ? `Play ${name}` : `${name} (add a YouTube link first)`
-              }
-              className="group absolute inset-0 block w-full cursor-pointer focus-visible:outline-3 focus-visible:-outline-offset-4 focus-visible:outline-red-400 disabled:cursor-not-allowed"
-            >
-              <Disc
-                color={song.label}
-                className="spin-disc absolute left-1/2 top-1/2 aspect-square h-[88%] -translate-x-1/2 -translate-y-1/2"
-              />
-              <span className="absolute left-1/2 top-1/2 grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-[#1e3a5f] bg-white shadow-[2px_2px_0_#1e3a5f] transition-[scale] duration-150 group-hover:scale-110 wide:h-16 wide:w-16">
-                {playable ? (
-                  <PlayIcon className="ml-0.5 h-6 w-6 text-[#1e3a5f] wide:h-7 wide:w-7" />
-                ) : (
-                  <NoteIcon className="h-6 w-6 text-[#1e3a5f]/60 wide:h-7 wide:w-7" />
-                )}
-              </span>
-              {!playable && (
-                <span className="caveat absolute bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/90 px-3 text-base text-[#1e3a5f]">
-                  add a YouTube link
-                </span>
-              )}
-            </button>
-          )}
+          <iframe
+            className="absolute inset-0 h-full w-full border-0"
+            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`}
+            title={name}
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
         </div>
 
         {/* Info lagu + tombol */}
