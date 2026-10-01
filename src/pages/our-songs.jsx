@@ -9,9 +9,9 @@ const NEXT_PATH = "/wish";
 // Selama url masih kosong, kartu tampil tetapi tombol play dinonaktifkan.
 const SONGS = [
   {
-    title: "Song title #1",
-    artist: "Artist name",
-    url: "",
+    title: "Shape Of My Heart",
+    artist: "Backstreet Boys",
+    url: "OT5msu-dap8",
     tint: "bg-[#fff3b8]",
     label: "#fcd34d",
     shadow: "shadow-[5px_5px_0_#f87171]",
@@ -56,11 +56,41 @@ const SONGS = [
 
 // Not musik melayang di sekitar gambar vinyl
 const NOTES = [
-  { pos: "left-[6%] top-[40%]", color: "#f87171", dur: "4.2s", d: "1.6s", dx: "-14px" },
-  { pos: "left-[22%] top-[8%]", color: "#5b9fd6", dur: "3.8s", d: "2.2s", dx: "10px" },
-  { pos: "right-[22%] top-[4%]", color: "#e0a526", dur: "4.6s", d: "1.9s", dx: "-8px" },
-  { pos: "right-[6%] top-[38%]", color: "#6f8f5e", dur: "4s", d: "2.6s", dx: "14px" },
-  { pos: "left-[46%] top-[0%]", color: "#f9a8d4", dur: "5s", d: "3s", dx: "6px" },
+  {
+    pos: "left-[6%] top-[40%]",
+    color: "#f87171",
+    dur: "4.2s",
+    d: "1.6s",
+    dx: "-14px",
+  },
+  {
+    pos: "left-[22%] top-[8%]",
+    color: "#5b9fd6",
+    dur: "3.8s",
+    d: "2.2s",
+    dx: "10px",
+  },
+  {
+    pos: "right-[22%] top-[4%]",
+    color: "#e0a526",
+    dur: "4.6s",
+    d: "1.9s",
+    dx: "-8px",
+  },
+  {
+    pos: "right-[6%] top-[38%]",
+    color: "#6f8f5e",
+    dur: "4s",
+    d: "2.6s",
+    dx: "14px",
+  },
+  {
+    pos: "left-[46%] top-[0%]",
+    color: "#f9a8d4",
+    dur: "5s",
+    d: "3s",
+    dx: "6px",
+  },
 ];
 
 function getYoutubeId(input) {
@@ -93,7 +123,12 @@ function NoteIcon({ className = "", style }) {
 
 function PlayIcon({ className = "" }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+    >
       <path d="M8 5v14l11-7z" />
     </svg>
   );
@@ -101,7 +136,12 @@ function PlayIcon({ className = "" }) {
 
 function StopIcon({ className = "" }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+    >
       <rect x="6" y="6" width="12" height="12" rx="2" />
     </svg>
   );
@@ -278,15 +318,6 @@ export default function OurSongs() {
           </p>
 
           <div className="relative mt-4 px-10 wide:px-16">
-            <div className="anim-drop" style={{ animationDelay: "0.8s" }}>
-              <img
-                src={wrapper}
-                alt="Sketch of a vinyl record sliding out of a sunny lake sleeve"
-                draggable={false}
-                className="anim-float h-[clamp(8rem,30svh,16rem)] w-auto select-none"
-                style={{ animationDelay: "2.2s" }}
-              />
-            </div>
             {NOTES.map((note, i) => (
               <NoteIcon
                 key={i}

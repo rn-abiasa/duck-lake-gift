@@ -1,5 +1,10 @@
 import NextButton from "../components/next-button";
 
+import one from "../assets/1.webp";
+import two from "../assets/2.webp";
+import three from "../assets/3.webp";
+import five from "../assets/5.webp";
+
 // Ganti dengan path halaman berikutnya saat route-nya sudah dibuat di main.jsx
 const NEXT_PATH = "/our-songs";
 
@@ -9,7 +14,7 @@ const NEXT_PATH = "/our-songs";
 // frame: "polaroid" | "arch" | "film" | "round" | "taped"
 const PHOTOS = [
   {
-    src: null,
+    src: one,
     alt: "Memory one",
     caption: "memory #1",
     frame: "polaroid",
@@ -18,7 +23,7 @@ const PHOTOS = [
     peg: "bg-red-300",
   },
   {
-    src: null,
+    src: two,
     alt: "Memory two",
     caption: "memory #2",
     frame: "arch",
@@ -27,7 +32,7 @@ const PHOTOS = [
     peg: "bg-sky-300",
   },
   {
-    src: null,
+    src: three,
     alt: "Memory three",
     caption: "memory #3",
     frame: "film",
@@ -36,7 +41,7 @@ const PHOTOS = [
     peg: "bg-yellow-300",
   },
   {
-    src: null,
+    src: five,
     alt: "Memory four",
     caption: "memory #4",
     frame: "round",
@@ -45,7 +50,7 @@ const PHOTOS = [
     peg: "bg-pink-300",
   },
   {
-    src: null,
+    src: one,
     alt: "Memory five",
     caption: "memory #5",
     frame: "taped",
