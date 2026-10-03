@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import NextButton from "../components/next-button";
+import BackToMenu from "../components/back-to-menu";
 import wrapper from "../assets/vinyl_wrapper_sketch.webp";
+import two from "../assets/2.webp";
+import three from "../assets/3.webp";
+import five from "../assets/5.webp";
 
-// Halaman berikutnya setelah daftar lagu
-const NEXT_PATH = "/wish";
-
-// 4 lagu. Isi `url` dengan link YouTube (watch?v=..., youtu.be/..., atau ID 11 karakter).
+// 1 lagu. Isi `url` dengan link YouTube (watch?v=..., youtu.be/..., atau ID 11 karakter).
 // Selama url masih kosong, kartu tampil tetapi tombol play dinonaktifkan.
 const SONGS = [
   {
@@ -16,19 +16,8 @@ const SONGS = [
     label: "#fcd34d",
     shadow: "shadow-[5px_5px_0_#f87171]",
     tilt: "-rotate-1",
-    side: "justify-self-start",
+    side: "mx-auto",
     stagger: "",
-  },
-  {
-    title: "You!",
-    artist: "LANY",
-    url: "HEAn4FqXFY4",
-    tint: "bg-[#dcecf9]",
-    label: "#93c5fd",
-    shadow: "shadow-[5px_5px_0_#5b9fd6]",
-    tilt: "rotate-1",
-    side: "justify-self-end",
-    stagger: "wide:mt-10",
   },
 ];
 
@@ -333,6 +322,106 @@ function SongCard({ song, index, active, onToggle }) {
   );
 }
 
+// Foto kenangan di samping kartu lagu (collage 3 polaroid).
+// pos = posisi di dalam collage (persen), ratio = rasio foto di dalam frame.
+const MEMORIES = [
+  {
+    src: two,
+    alt: "Us, laughing together",
+    caption: "me & you",
+    pos: "left-0 top-0 z-10 w-[64%]",
+    ratio: "aspect-[4/3]",
+    tilt: "-rotate-6",
+    tape: "bg-red-300/70",
+  },
+  {
+    src: three,
+    alt: "Us, sitting by the flowers",
+    caption: "my favorite place",
+    pos: "right-0 top-[27%] z-20 w-[50%]",
+    ratio: "aspect-[4/5]",
+    tilt: "rotate-6",
+    tape: "bg-yellow-200/90",
+  },
+  {
+    src: five,
+    alt: "Us, sitting on the steps",
+    caption: "always us",
+    pos: "bottom-0 left-[6%] z-30 w-[62%]",
+    ratio: "aspect-[4/3]",
+    tilt: "-rotate-3",
+    tape: "bg-sky-300/70",
+  },
+];
+
+function MemoryPolaroid({ memory, index }) {
+  return (
+    <div
+      className={`anim-pop absolute ${memory.pos}`}
+      style={{ animationDelay: `${1.4 + index * 0.25}s` }}
+    >
+      <div
+        className="anim-float"
+        style={{ animationDelay: `${2.6 + index * 0.7}s` }}
+      >
+        <div
+          className={`relative border border-[#1e3a5f]/20 bg-white p-[6%] pb-[3%] shadow-[4px_5px_0_rgba(30,58,95,0.25)] transition-[rotate,scale] duration-200 hover:rotate-0 hover:scale-105 ${memory.tilt}`}
+        >
+          {/* washi tape */}
+          <span
+            aria-hidden="true"
+            className={`absolute -top-3 left-1/2 h-5 w-[42%] -translate-x-1/2 -rotate-3 shadow-sm ${memory.tape}`}
+          />
+          <img
+            src={memory.src}
+            alt={memory.alt}
+            draggable={false}
+            loading="lazy"
+            className={`w-full select-none object-cover ${memory.ratio}`}
+          />
+          <p className="caveat mt-1 text-center text-base leading-6 text-[#1e3a5f]/80 wide:text-lg wide:leading-7">
+            {memory.caption}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MemoryCollage() {
+  return (
+    <div
+      role="group"
+      aria-label="Our memories"
+      className="relative aspect-[10/13] w-[min(88vw,22rem)] shrink-0 wide:w-[clamp(16rem,34vw,25rem)]"
+    >
+      {/* sticker hati & bintang di sekitar collage */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="anim-float absolute -right-2 -top-3 z-40 h-8 w-8 rotate-12 text-red-400"
+        style={{ animationDelay: "2.2s" }}
+      >
+        <path d="M12 21s-7-4.4-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 12c-2.5 4.6-9.5 9-9.5 9z" />
+      </svg>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="anim-float absolute -left-3 bottom-[34%] z-40 h-6 w-6 text-yellow-400"
+        style={{ animationDelay: "3s" }}
+      >
+        <path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" />
+      </svg>
+
+      {MEMORIES.map((memory, i) => (
+        <MemoryPolaroid key={memory.caption} memory={memory} index={i} />
+      ))}
+    </div>
+  );
+}
+
 export default function OurSongs() {
   // Hanya satu lagu yang aktif: iframe lagu lain otomatis dilepas sehingga tidak bisa bunyi bersamaan
   const [activeIndex, setActiveIndex] = useState(null);
@@ -393,23 +482,25 @@ export default function OurSongs() {
           </div>
         </header>
 
-        {/* 4 kartu lagu */}
-        <ul className="relative z-10 mt-10 grid w-full max-w-5xl grid-cols-1 gap-x-8 gap-y-10 px-5 wide:mt-14 wide:grid-cols-2 wide:px-8">
-          {SONGS.map((song, i) => (
-            <SongCard
-              key={i}
-              song={song}
-              index={i}
-              active={activeIndex === i}
-              onToggle={() => toggle(i)}
-            />
-          ))}
-        </ul>
+        {/* Kartu lagu + foto kenangan di sampingnya (desktop) / di bawahnya (HP) */}
+        <div className="relative z-10 mt-10 flex w-full max-w-5xl flex-col items-center gap-14 px-5 wide:mt-14 wide:flex-row wide:justify-center wide:gap-16 wide:px-8">
+          <ul className="w-full wide:w-auto wide:flex-1">
+            {SONGS.map((song, i) => (
+              <SongCard
+                key={i}
+                song={song}
+                index={i}
+                active={activeIndex === i}
+                onToggle={() => toggle(i)}
+              />
+            ))}
+          </ul>
+
+          <MemoryCollage />
+        </div>
 
         <div className="relative z-10 mt-14 pb-16 wide:mt-16">
-          <NextButton to={NEXT_PATH} delay="2.4s">
-            Next
-          </NextButton>
+          <BackToMenu delay="2.4s" />
         </div>
       </section>
     </main>

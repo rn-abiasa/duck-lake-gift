@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import sella from "../assets/sella_with_sketch_hat.webp";
 
 // Halaman berikutnya setelah cover
-const NEXT_PATH = "/special-message";
+const NEXT_PATH = "/menu";
 
 const CONFETTI_COLORS = [
   "#5b9fd6",

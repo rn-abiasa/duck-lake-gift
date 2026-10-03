@@ -1,12 +1,9 @@
-import NextButton from "../components/next-button";
+import BackToMenu from "../components/back-to-menu";
 
 import one from "../assets/1.webp";
 import two from "../assets/2.webp";
 import three from "../assets/3.webp";
 import five from "../assets/5.webp";
-
-// Halaman berikutnya setelah pesan spesial
-const NEXT_PATH = "/why-you-are-special";
 
 // Ganti isi pesan di sini. Setiap item = satu paragraf.
 const GREETING = "Dear Baby,";
@@ -212,9 +209,7 @@ export default function SpecialMessage() {
           {/* Foto dekorasi versi mobile (di bawah pesan) */}
           <PhotoFan className="mt-10 flex wide:hidden" />
 
-          <NextButton to={NEXT_PATH} delay="2.4s" className="mt-10 wide:mt-12">
-            One more thing
-          </NextButton>
+          <BackToMenu delay="2.4s" className="mt-10 wide:mt-12" />
         </div>
       </section>
     </main>

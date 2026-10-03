@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import NextButton from "../components/next-button";
-
-// Halaman berikutnya setelah mini game
-const NEXT_PATH = "/memories";
+import BackToMenu from "../components/back-to-menu";
 
 // Ganti isi 5 alasan di sini. title = judul pendek, text = kalimat singkat (±60 karakter).
 const REASONS = [
@@ -292,9 +289,7 @@ export default function WhyYouAreSpecial() {
               <p className="caveat text-xl text-[#1e3a5f]/80 wide:text-2xl">
                 and there's still one more thing...
               </p>
-              <NextButton to={NEXT_PATH} delay="0.5s" className="mt-2">
-                Next
-              </NextButton>
+              <BackToMenu delay="0.5s" className="mt-2" />
               <button
                 type="button"
                 onClick={reset}
