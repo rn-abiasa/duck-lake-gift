@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import NextButton from "../components/next-button";
 import wrapper from "../assets/vinyl_wrapper_sketch.webp";
 
@@ -27,28 +27,6 @@ const SONGS = [
     label: "#93c5fd",
     shadow: "shadow-[5px_5px_0_#5b9fd6]",
     tilt: "rotate-1",
-    side: "justify-self-end",
-    stagger: "wide:mt-10",
-  },
-  {
-    title: "Kita Lewati Berdua",
-    artist: "Overnight",
-    url: "__Pb1fO2H2A",
-    tint: "bg-[#fde2e4]",
-    label: "#fca5a5",
-    shadow: "shadow-[5px_5px_0_#f4c95d]",
-    tilt: "rotate-1",
-    side: "justify-self-start",
-    stagger: "",
-  },
-  {
-    title: "Bergema Sampai Selamanya",
-    artist: "Nadhif Basalamah",
-    url: "gvunApwKIiY",
-    tint: "bg-[#d8f3e4]",
-    label: "#86efac",
-    shadow: "shadow-[5px_5px_0_#9bb98a]",
-    tilt: "-rotate-1",
     side: "justify-self-end",
     stagger: "wide:mt-10",
   },
@@ -99,6 +77,31 @@ function getYoutubeId(input) {
   const match = text.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
   if (match) return match[1];
   return /^[\w-]{11}$/.test(text) ? text : null;
+}
+
+// Load YouTube IFrame API sekali saja untuk semua kartu lagu.
+// Player dibuat lebih awal (eager) agar saat user menekan play, player sudah siap
+// dan playVideo() berjalan tepat di dalam jendela user activation browser (~5 detik).
+let youtubeApiPromise = null;
+function loadYoutubeApi() {
+  if (window.YT?.Player) return Promise.resolve(window.YT);
+  if (youtubeApiPromise) return youtubeApiPromise;
+  youtubeApiPromise = new Promise((resolve) => {
+    const previous = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      if (typeof previous === "function") previous();
+      resolve(window.YT);
+    };
+    const script = document.createElement("script");
+    script.src = "https://www.youtube.com/iframe_api";
+    script.async = true;
+    script.onerror = () => {
+      youtubeApiPromise = null; // izinkan percobaan ulang di mount berikutnya
+      resolve(null);
+    };
+    document.head.appendChild(script);
+  });
+  return youtubeApiPromise;
 }
 
 function NoteIcon({ className = "", style }) {
@@ -165,6 +168,66 @@ function SongCard({ song, index, active, onToggle }) {
   const playable = Boolean(id);
   const name = `${song.title} by ${song.artist}`;
 
+  const mountRef = useRef(null);
+  const playerRef = useRef(null);
+  const wantPlayRef = useRef(active);
+
+  // Buat player secara eager saat kartu dimount (tanpa autoplay).
+  // Node container dikelola React; iframe dari YT.Player dimasukkan ke dalamnya
+  // lewat elemen turunan agar aman terhadap StrictMode (mount/unmount ganda).
+  useEffect(() => {
+    if (!id) return undefined;
+    const mount = mountRef.current;
+    if (!mount) return undefined;
+    let cancelled = false;
+
+    loadYoutubeApi().then((YT) => {
+      if (cancelled || !YT) return;
+      const target = document.createElement("div");
+      mount.appendChild(target);
+      playerRef.current = new YT.Player(target, {
+        videoId: id,
+        playerVars: {
+          autoplay: 0,
+          playsinline: 1,
+          rel: 0,
+          modestbranding: 1,
+          origin: window.location.origin,
+          host: "https://www.youtube-nocookie.com",
+        },
+        events: {
+          onReady: () => {
+            if (cancelled || !playerRef.current) return;
+            playerRef.current.getIframe()?.setAttribute("title", name);
+            // Jika user menekan play sebelum player sempat siap, langsung putar
+            if (wantPlayRef.current) playerRef.current.playVideo();
+          },
+        },
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      wantPlayRef.current = false;
+      try {
+        playerRef.current?.destroy?.();
+      } catch {
+        // iframe sudah dilepas browser — abaikan
+      }
+      playerRef.current = null;
+      mount.replaceChildren();
+    };
+  }, [id, name]);
+
+  // Play/pause mengikuti state active (hanya satu lagu yang bunyi dalam satu waktu)
+  useEffect(() => {
+    wantPlayRef.current = active;
+    const player = playerRef.current;
+    if (!player) return; // player belum siap — akan ditangani saat onReady
+    if (active) player.playVideo();
+    else player.pauseVideo();
+  }, [active]);
+
   return (
     <li
       className={`anim-rise relative w-[90%] ${song.side} ${song.stagger} wide:w-full wide:max-w-md wide:justify-self-center`}
@@ -196,20 +259,18 @@ function SongCard({ song, index, active, onToggle }) {
           </span>
         )}
 
-        {/* Area media: thumbnail video -> diganti iframe YouTube saat dimainkan */}
+        {/* Area media: thumbnail video (cover) -> player YouTube saat dimainkan */}
         <div
           className={`relative aspect-[4/3] overflow-hidden rounded-xl border-2 border-[#1e3a5f] ${song.tint}`}
         >
-          {active && id ? (
-            <iframe
-              className="absolute inset-0 h-full w-full border-0"
-              src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`}
-              title={name}
-              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-              allowFullScreen
-              referrerPolicy="strict-origin-when-cross-origin"
+          {playable && (
+            <div
+              ref={mountRef}
+              inert={!active}
+              className="absolute inset-0 [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0"
             />
-          ) : (
+          )}
+          {!active && (
             <button
               type="button"
               onClick={onToggle}
@@ -217,7 +278,7 @@ function SongCard({ song, index, active, onToggle }) {
               aria-label={
                 playable ? `Play ${name}` : `${name} (add a YouTube link first)`
               }
-              className="absolute inset-0 block w-full cursor-pointer transition-[filter] duration-150 focus-visible:outline-3 focus-visible:-outline-offset-4 focus-visible:outline-red-400 hover:brightness-110 disabled:cursor-not-allowed disabled:hover:brightness-100"
+              className="absolute inset-0 z-10 block w-full cursor-pointer transition-[filter] duration-150 focus-visible:outline-3 focus-visible:-outline-offset-4 focus-visible:outline-red-400 hover:brightness-110 disabled:cursor-not-allowed disabled:hover:brightness-100"
             >
               {id && (
                 <img

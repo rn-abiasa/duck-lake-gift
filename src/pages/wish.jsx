@@ -353,9 +353,7 @@ export default function Wish() {
             className="caveat mt-6 text-xl text-sky-200/90 wide:text-2xl"
             aria-live="polite"
           >
-            {lit
-              ? "tap the cake to make a wish"
-              : "your wish is on its way... tap to relight"}
+            {lit ? "tap the cake!" : "tap to relight"}
           </p>
         </div>
 
