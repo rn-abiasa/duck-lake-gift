@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import haikal from "../assets/haikal_with_sketch_hat.webp";
+import sella from "../assets/sella_with_sketch_hat.webp";
 
 // Halaman berikutnya setelah cover
 const NEXT_PATH = "/special-message";
@@ -97,7 +97,7 @@ export default function Cover() {
               style={{ animationDelay: "0.35s" }}
             >
               <img
-                src={haikal}
+                src={sella}
                 alt="Haikal wearing a sketched hat"
                 draggable={false}
                 className="anim-float h-[clamp(7rem,34svh,17.5rem)] w-auto select-none wide:h-[clamp(8rem,46svh,32rem)] wide:max-w-[85%] wide:object-contain"
