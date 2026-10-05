@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 
 import Layout from "./components/layout";
+import SplashGate from "./components/splash-gate";
 import Cover from "./pages/cover";
 import SpecialMessage from "./pages/special-message";
 import WhyYouAreSpecial from "./pages/why-you-are-special";
@@ -17,7 +18,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Cover />,
+        element: (
+          <SplashGate>
+            <Cover />
+          </SplashGate>
+        ),
       },
       {
         path: "/special-message",
