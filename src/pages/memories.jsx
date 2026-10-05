@@ -1,9 +1,12 @@
-import BackToMenu from "../components/back-to-menu";
+import NextButton from "../components/next-button";
 
 import one from "../assets/1.webp";
 import two from "../assets/2.webp";
 import three from "../assets/3.webp";
 import five from "../assets/5.webp";
+
+// Halaman berikutnya setelah foto kenangan
+const NEXT_PATH = "/our-songs";
 
 // 5 frame foto, masing-masing dengan gaya frame berbeda.
 // Biarkan src: null untuk frame kosong (blanko).
@@ -250,7 +253,9 @@ export default function Memories() {
         </ul>
 
         <div className="relative z-10 mt-14 pb-20 wide:mt-16">
-          <BackToMenu delay="2.2s" />
+          <NextButton to={NEXT_PATH} delay="2.2s">
+            Next
+          </NextButton>
         </div>
 
         {/* Gelombang danau di dasar halaman */}

@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import BackToMenu from "../components/back-to-menu";
+import NextButton from "../components/next-button";
 import wrapper from "../assets/vinyl_wrapper_sketch.webp";
 import two from "../assets/2.webp";
 import three from "../assets/3.webp";
 import five from "../assets/5.webp";
+
+// Halaman berikutnya setelah daftar lagu
+const NEXT_PATH = "/wish";
 
 // 1 lagu. Isi `url` dengan link YouTube (watch?v=..., youtu.be/..., atau ID 11 karakter).
 // Selama url masih kosong, kartu tampil tetapi tombol play dinonaktifkan.
@@ -500,7 +503,9 @@ export default function OurSongs() {
         </div>
 
         <div className="relative z-10 mt-14 pb-16 wide:mt-16">
-          <BackToMenu delay="2.4s" />
+          <NextButton to={NEXT_PATH} delay="2.4s">
+            Next
+          </NextButton>
         </div>
       </section>
     </main>

@@ -1,31 +1,34 @@
 import { useEffect, useRef, useState } from "react";
-import BackToMenu from "../components/back-to-menu";
+import NextButton from "../components/next-button";
+
+// Halaman berikutnya setelah mini game
+const NEXT_PATH = "/memories";
 
 // Ganti isi 5 alasan di sini. title = judul pendek, text = kalimat singkat (±60 karakter).
 const REASONS = [
   {
-    title: "Your laugh",
-    text: "It turns any ordinary moment into my favorite one.",
+    title: "Kamu lucu",
+    text: "Hal itu mengubah momen biasa apa pun menjadi momen favoritku.",
     tilt: "-rotate-2",
   },
   {
-    title: "Your kindness",
-    text: "You care for people quietly, even when no one is watching.",
+    title: "Kebaikan Kamu",
+    text: "Kamu peduli pada orang lain secara diam-diam, bahkan saat tidak ada yang melihat.",
     tilt: "rotate-1",
   },
   {
-    title: "Your strength",
-    text: "You keep going, and you make me believe I can too.",
+    title: "Kamu Kuat",
+    text: "Kamu terus melangkah, dan membuatku yakin bahwa aku juga bisa.",
     tilt: "rotate-2",
   },
   {
-    title: "Your warmth",
-    text: "Wherever you are, that place instantly feels like home.",
+    title: "Kehangatanmu",
+    text: "Di mana pun kamu berada, tempat itu seketika terasa seperti rumah.",
     tilt: "-rotate-1",
   },
   {
-    title: "Just you",
-    text: "Every little thing about you is exactly why I love you.",
+    title: "Hanya Kamu",
+    text: "Segala hal kecil tentang dirimu adalah alasan tepat mengapa aku mencintaimu.",
     tilt: "rotate-1",
   },
 ];
@@ -34,7 +37,8 @@ const HEART_BIG =
   "M50 88 C20 66 4 48 4 28 C4 14 15 5 28 5 C38 5 46 10 50 18 C54 10 62 5 72 5 C85 5 96 14 96 28 C96 48 80 66 50 88 Z";
 const HEART_ICON =
   "M12 21s-7-4.4-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 12c-2.5 4.6-9.5 9-9.5 9z";
-const SPARKLE_ICON = "M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z";
+const SPARKLE_ICON =
+  "M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z";
 
 const PARTICLE_COLORS = ["#f87171", "#f9a8d4", "#5b9fd6", "#fcd34d"];
 
@@ -61,10 +65,30 @@ const PARTICLES = Array.from({ length: 18 }, (_, i) => {
 
 // Dekorasi latar
 const DOODLES = [
-  { d: HEART_ICON, pos: "left-[5%] top-[36%]", color: "text-pink-300", size: "h-7 w-7" },
-  { d: SPARKLE_ICON, pos: "right-[6%] top-[20%]", color: "text-yellow-300", size: "h-6 w-6" },
-  { d: HEART_ICON, pos: "right-[8%] top-[68%]", color: "text-sky-400", size: "h-6 w-6" },
-  { d: SPARKLE_ICON, pos: "left-[8%] top-[84%]", color: "text-red-300", size: "h-7 w-7" },
+  {
+    d: HEART_ICON,
+    pos: "left-[5%] top-[36%]",
+    color: "text-pink-300",
+    size: "h-7 w-7",
+  },
+  {
+    d: SPARKLE_ICON,
+    pos: "right-[6%] top-[20%]",
+    color: "text-yellow-300",
+    size: "h-6 w-6",
+  },
+  {
+    d: HEART_ICON,
+    pos: "right-[8%] top-[68%]",
+    color: "text-sky-400",
+    size: "h-6 w-6",
+  },
+  {
+    d: SPARKLE_ICON,
+    pos: "left-[8%] top-[84%]",
+    color: "text-red-300",
+    size: "h-7 w-7",
+  },
 ];
 
 function Icon({ d, className = "", style }) {
@@ -289,7 +313,9 @@ export default function WhyYouAreSpecial() {
               <p className="caveat text-xl text-[#1e3a5f]/80 wide:text-2xl">
                 and there's still one more thing...
               </p>
-              <BackToMenu delay="0.5s" className="mt-2" />
+              <NextButton to={NEXT_PATH} delay="0.5s" className="mt-2">
+                Next
+              </NextButton>
               <button
                 type="button"
                 onClick={reset}

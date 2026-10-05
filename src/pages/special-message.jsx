@@ -1,16 +1,19 @@
-import BackToMenu from "../components/back-to-menu";
+import NextButton from "../components/next-button";
 
 import one from "../assets/1.webp";
 import two from "../assets/2.webp";
 import three from "../assets/3.webp";
 import five from "../assets/5.webp";
 
+// Halaman berikutnya setelah pesan spesial
+const NEXT_PATH = "/why-you-are-special";
+
 // Ganti isi pesan di sini. Setiap item = satu paragraf.
-const GREETING = "Dear Baby,";
+const GREETING = "Happy Birthday Sayang.";
 const MESSAGE = [
-  "Happy birthday, my favorite person! I wanted to make something small and sweet, just for you, because you deserve all the little things that make you smile.",
-  "Thank you for being the calm in my busy days, the laugh in my silly moments, and the best part of every plan. Being with you feels like a quiet afternoon by the lake: warm, easy, and exactly where I want to be.",
-  "I hope this year brings you everything you wished for, and a little extra. I'll be right here, cheering you on, like always.",
+  "Terima kasih sudah hadir dan menjadi bagian dari hari-hariku. Bersamamu, hal-hal sederhana terasa lebih berarti dan selalu ada alasan untuk tersenyum.",
+  "Di hari spesialmu ini, aku cuma ingin kamu tahu bahwa aku bersyukur bisa mengenalmu dan berjalan bersamamu sampai sejauh ini. Semoga semua hal baik selalu datang kepadamu, dan semoga aku masih bisa menjadi salah satu alasan di balik senyummu di hari-hari berikutnya.",
+  "Selamat bertambah usia, sayang.",
 ];
 const CLOSING = ["With all my love,", "Always yours"];
 
@@ -209,7 +212,9 @@ export default function SpecialMessage() {
           {/* Foto dekorasi versi mobile (di bawah pesan) */}
           <PhotoFan className="mt-10 flex wide:hidden" />
 
-          <BackToMenu delay="2.4s" className="mt-10 wide:mt-12" />
+          <NextButton to={NEXT_PATH} delay="2.4s" className="mt-10 wide:mt-12">
+            One more thing
+          </NextButton>
         </div>
       </section>
     </main>

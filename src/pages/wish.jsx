@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 // Ganti isi wish di sini. Setiap item = satu baris harapan.
 const WISHES = [
-  "May your days be soft, slow, and full of laughter.",
-  "May every dream you carry find its way back to you.",
-  "And may I be right there, cheering for each one.",
+  "Semoga hari-harimu terasa lembut, santai, dan penuh tawa.",
+  "Semoga semua impianmu bisa terwujud.",
+  "Dan semoga harimu selalu dipenuhi dengan hal-hal yang membuatmu bahagia.",
 ];
 const CLOSING = "Happy birthday, my favorite person.";
 
-// Halaman menu
-const MENU_PATH = "/menu";
+// Halaman pertama (cover)
+const FIRST_PATH = "/";
 
 const HEART_ICON =
   "M12 21s-7-4.4-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 12c-2.5 4.6-9.5 9-9.5 9z";
@@ -398,7 +398,7 @@ export default function Wish() {
           </div>
 
           <Link
-            to={MENU_PATH}
+            to={FIRST_PATH}
             className="anim-rise caveat group mt-12 inline-flex items-center gap-3 rounded-full border-2 border-[#1e3a5f] bg-white px-6 py-2 text-2xl font-semibold text-[#1e3a5f] shadow-[4px_4px_0_#f87171] transition-[translate,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_#f87171] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-yellow-200 active:translate-x-1 active:translate-y-1 active:shadow-none wide:px-8 wide:py-3 wide:text-3xl"
             style={{ animationDelay: "2.6s" }}
           >
@@ -410,12 +410,12 @@ export default function Wish() {
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="h-6 w-6 text-red-400 transition-[translate] duration-300 group-hover:-translate-x-1 wide:h-7 wide:w-7"
+              className="h-6 w-6 text-red-400 transition-[rotate] duration-300 group-hover:-rotate-180 wide:h-7 wide:w-7"
             >
-              <path d="M20 12H5" />
-              <path d="m11 6-6 6 6 6" />
+              <polyline points="1 4 1 10 7 10" />
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
             </svg>
-            Back to menu
+            Back to first
           </Link>
         </div>
       </section>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import sella from "../assets/sella_with_sketch_hat.webp";
 
 // Halaman berikutnya setelah cover
-const NEXT_PATH = "/menu";
+const NEXT_PATH = "/special-message";
 
 const CONFETTI_COLORS = [
   "#5b9fd6",
@@ -98,7 +98,7 @@ export default function Cover() {
             >
               <img
                 src={sella}
-                alt="Haikal wearing a sketched hat"
+                alt="Sella wearing a sketched hat"
                 draggable={false}
                 className="anim-float h-[clamp(7rem,34svh,17.5rem)] w-auto select-none wide:h-[clamp(8rem,46svh,32rem)] wide:max-w-[85%] wide:object-contain"
               />
@@ -119,7 +119,7 @@ export default function Cover() {
                 className="anim-rise block"
                 style={{ animationDelay: "1.5s" }}
               >
-                My Favorite Person!
+                My Favorite Person. Sella!
               </span>
             </p>
 
